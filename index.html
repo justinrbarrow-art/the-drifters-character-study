@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Drifters (1971) — Photorealistic Character Studies | James A. Michener</title>
+  <style>
+    :root {
+      --bg-primary: #0f0e0c;
+      --bg-secondary: #181613;
+      --bg-card: #211e1a;
+      --bg-card-hover: #2a2621;
+      --accent-gold: #d4a359;
+      --accent-terracotta: #c85a32;
+      --accent-olive: #6b7c59;
+      --text-primary: #f2ece1;
+      --text-secondary: #b8afa0;
+      --text-muted: #857d70;
+      --border-subtle: #332e27;
+      --badge-r: #9e2a2b;
+      --badge-pg13: #b5651d;
+      --badge-pg: #386641;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header & Hero */
+    header {
+      background: linear-gradient(180deg, #1f1b16 0%, #0f0e0c 100%);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      font-weight: normal;
+      letter-spacing: 0.03em;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      max-width: 820px;
+      margin: 0 auto 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      font-style: italic;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid var(--accent-gold);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-gold);
+      color: #12100e;
+    }
+
+    .btn-primary:hover {
+      background-color: #e3b46b;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--accent-gold);
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(212, 163, 89, 0.12);
+    }
+
+    /* Controls & Filters */
+    .controls-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(24, 22, 19, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.9rem 2rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .controls-inner {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .char-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .tab-btn {
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.83rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-gold);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-gold);
+      color: #12100e;
+      border-color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    select, input[type="search"] {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      padding: 0.45rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      outline: none;
+    }
+
+    select:focus, input[type="search"]:focus {
+      border-color: var(--accent-gold);
+    }
+
+    /* Main Content Container */
+    main {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Source & Edition Banner */
+    .edition-banner {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent-gold);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      font-size: 0.92rem;
+    }
+
+    .edition-col h3 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .edition-col p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+    }
+
+    /* Character Section */
+    .char-section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 80px;
+    }
+
+    .char-header {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .char-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .char-name {
+      font-size: 1.85rem;
+      color: var(--accent-gold);
+    }
+
+    .char-meta {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .char-meta span strong {
+      color: var(--text-primary);
+    }
+
+    .char-details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    .detail-box {
+      background: rgba(0, 0, 0, 0.22);
+      padding: 0.9rem 1.1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .detail-box h4 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-gold);
+      margin-bottom: 0.35rem;
+    }
+
+    .detail-box p {
+      color: var(--text-secondary);
+      font-size: 0.86rem;
+    }
+
+    /* Cards Grid */
+    .scenes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .scene-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .scene-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-gold);
+      background: var(--bg-card-hover);
+    }
+
+    .img-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #080706;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .scene-card:hover .img-wrapper img {
+      transform: scale(1.03);
+    }
+
+    .panel-badge {
+      position: absolute;
+      top: 0.7rem;
+      left: 0.7rem;
+      background: rgba(15, 14, 12, 0.85);
+      color: var(--accent-gold);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      border: 1px solid rgba(212, 163, 89, 0.4);
+    }
+
+    .rating-badge {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .rating-r { background: var(--badge-r); }
+    .rating-pg13 { background: var(--badge-pg13); }
+    .rating-pg { background: var(--badge-pg); }
+
+    .card-body {
+      padding: 1.15rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 0.65rem;
+    }
+
+    .scene-title {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      font-weight: bold;
+      line-height: 1.3;
+    }
+
+    .scene-citation {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.5rem;
+    }
+
+    .note-block {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+    }
+
+    .note-block strong {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      display: inline-block;
+      margin-right: 0.3rem;
+    }
+
+    .note-adaptation {
+      background: rgba(200, 90, 50, 0.12);
+      border-left: 3px solid var(--accent-terracotta);
+      padding: 0.4rem 0.6rem;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      color: #e6ccb2;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.78rem;
+    }
+
+    .dl-link {
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .dl-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(8, 7, 6, 0.94);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 1200px;
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      max-height: 90vh;
+    }
+
+    @media (max-width: 900px) {
+      .lightbox-content {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+      }
+    }
+
+    .lightbox-img-box {
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      max-height: 88vh;
+    }
+
+    .lightbox-img-box img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+    }
+
+    .lightbox-info {
+      padding: 1.75rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .lb-close {
+      align-self: flex-end;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .lb-close:hover {
+      color: #fff;
+      border-color: var(--accent-gold);
+    }
+
+    .lb-nav {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .lb-nav button {
+      flex: 1;
+      padding: 0.6rem;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .lb-nav button:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="eyebrow">James A. Michener &bull; 1971 Random House Edition Reference</div>
+    <h1>THE DRIFTERS</h1>
+    <p class="subtitle">
+      Photorealistic 1968–1970 Visual Character Studies Across All 8 Major Characters &amp; 80 Canonical Scenes
+      (Torremolinos &bull; Pamplona &bull; Algarve &bull; Mozambique &bull; Marrakech)
+    </p>
+    <div class="header-actions">
+      <a class="btn btn-primary" href="The_Drifters_80_Character_Studies.zip" download>
+        &darr; Download All 80 Images (.ZIP, 60 MB)
+      </a>
+      <button class="btn btn-outline" id="openGuideBtn" type="button">
+        View Complete Source &amp; Scene Guide
+      </button>
+    </div>
+  </header>
+
+  <div class="controls-bar">
+    <div class="controls-inner">
+      <div class="char-tabs" id="charTabs">
+        <button class="tab-btn active" data-char="all">All Characters (80)</button>
+      </div>
+      <div class="filter-group">
+        <select id="chapterFilter">
+          <option value="all">All Chapters / Locations</option>
+          <option value="Chapter I">Ch. I–VI: Individual Origins</option>
+          <option value="Torremolinos">Ch. VII: Torremolinos (Spain)</option>
+          <option value="Pamplona">Ch. VIII: Pamplona (San Fermín)</option>
+          <option value="Algarve">Ch. IX: Algarve &amp; Alte (Portugal)</option>
+          <option value="Mozambique">Ch. X: Mozambique (East Africa)</option>
+          <option value="Marrakech">Ch. XI: Marrakech (Morocco)</option>
+          <option value="Epilogue">Epilogue / Departures</option>
+        </select>
+        <select id="ratingFilter">
+          <option value="all">All Maturity Levels</option>
+          <option value="R">Mature / R-Rated Panels Only</option>
+          <option value="PG-13">PG-13 &amp; Above</option>
+        </select>
+        <input type="search" id="searchInput" placeholder="Search outfits, props, scenes..." />
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="edition-banner">
+      <div class="edition-col">
+        <h3>1. Reference Editions &amp; Translation Notes</h3>
+        <p>
+          Referenced against the <strong>1971 Random House First Edition</strong> (751 pp., ISBN 0-394-46200-9, abbreviated <em>RH</em>) and the <strong>1972 Fawcett Crest Paperback</strong> (768 pp., abbreviated <em>FC</em>). Spanish editions (<em>Hijos de Torremolinos</em>, Plaza &amp; Janés) and French editions (<em>Les Déracinés</em>) occasionally soften 1960s American drug vernacular ("skin-popping", "Big-H", "kif", "acid") or translate colonial administrative titles in Vwarda and Portuguese Mozambique more generically.
+        </p>
+      </div>
+      <div class="edition-col">
+        <h3>2. Source-Supported Details vs. Artistic Choices</h3>
+        <p>
+          Every panel strictly separates <strong>Book-Supported Canon</strong> (ages, nationalities, physical builds, hair, injuries, key garments, and settings) from <strong>Period-Appropriate Artistic Choices</strong> (1968–1970 garment colors, specific weave patterns, and 35mm Kodachrome lighting) where the text leaves minor visual details unspecified.
+        </p>
+      </div>
+      <div class="edition-col">
+        <h3>3. Mature Content &amp; Safety Adaptations</h3>
+        <p>
+          All 8 characters are legal adults (ages 18–61). In accordance with instructions, mature R-rated themes from Michener's novel—sensual intimacy, sheer garments, Pamplona bull-horn gorings, 1968 police riot contusions, and Monica's heroin/hepatitis wasting in Marrakech—are preserved. In two beach panels (<code>britta_05</code> and <code>gretchen_07</code>), minimal safety-filter adaptations were made and documented directly on the cards.
+        </p>
+      </div>
+    </section>
+
+    <div id="galleryContainer"></div>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <div class="lightbox-img-box">
+        <img id="lbImg" src="" alt="" />
+      </div>
+      <div class="lightbox-info">
+        <button class="lb-close" id="lbClose">&times; Close (Esc)</button>
+        <div class="eyebrow" id="lbCharName"></div>
+        <h2 id="lbTitle" style="font-size:1.5rem; color:var(--text-primary);"></h2>
+        <div class="scene-citation" id="lbMeta"></div>
+        <div class="note-block" id="lbCanon"></div>
+        <div class="note-block" id="lbArtistic"></div>
+        <div class="note-adaptation" id="lbAdaptation" style="display:none;"></div>
+        <div style="margin-top:0.5rem;">
+          <a id="lbDownload" class="btn btn-primary" href="" download style="width:100%; justify-content:center;">
+            &darr; Download High-Res Image (.JPG)
+          </a>
+        </div>
+        <div class="lb-nav">
+          <button id="lbPrev">&larr; Previous Panel</button>
+          <button id="lbNext">Next Panel &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Source & Scene Guide Modal -->
+  <div class="lightbox" id="guideModal">
+    <div style="max-width:1100px; width:100%; max-height:90vh; background:var(--bg-secondary); border:1px solid var(--border-subtle); border-radius:12px; padding:2rem 2.5rem; overflow-y:auto; position:relative;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:1rem; margin-bottom:1.5rem; position:sticky; top:-2rem; background:var(--bg-secondary); padding-top:0.5rem; z-index:10;">
+        <div>
+          <div class="eyebrow" style="margin-bottom:0.2rem;">Complete Reference Documentation</div>
+          <h2 style="color:var(--accent-gold); font-size:1.6rem;">Source-and-Scene Guide &amp; Editorial Notes</h2>
+        </div>
+        <div style="display:flex; gap:0.75rem; align-items:center;">
+          <a class="btn btn-outline" href="SOURCE_AND_SCENE_GUIDE.md" download="SOURCE_AND_SCENE_GUIDE.md" style="padding:0.4rem 0.85rem; font-size:0.8rem;">&darr; Download .MD</a>
+          <button class="lb-close" id="closeGuideBtn">&times; Close (Esc)</button>
+        </div>
+      </div>
+      <div id="guideModalBody" style="display:flex; flex-direction:column; gap:1.5rem; font-size:0.92rem; color:var(--text-secondary);"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Visual Character Study &bull; <em>The Drifters</em> by James A. Michener (1971) &bull; 80 Photorealistic 35mm Period Studies</p>
+  </footer>
+
+  <script>
+    const CHARACTERS = [{"id": "britta", "name": "Britta Lindquist", "role": "The Norwegian Sun-Seeker", "origin": "Tromsø, Norway", "age": "18–19 (Adult)", "chapter_intro": "Chapter II: Britta (pp. 73–128 RH / pp. 78–136 FC)", "physical_anchor": "Tall (5'8\"), statuesque and athletic Scandinavian build, natural full bust, long legs, high Nordic cheekbones, striking clear ice-blue eyes, straight nose, and naturally full soft lips. Thick, straight-to-softly-wavy platinum-blonde hair past her shoulders. Chronological complexion change: pale porcelain Nordic skin in Tromsø (Scene 01), transitioning to a deep, sun-worshipping golden Mediterranean tan from Torremolinos onward (Scenes 02–10).", "canon_vs_artistic": "Canon: Her origin above the Arctic Circle in Tromsø, oppressive winter darkness, 'impeccably blonde' Scandinavian beauty that turns heads everywhere, obsession with Mediterranean sun and beach bikinis, pairing with Joe in Torremolinos/Algarve, later liaison with older ex-Marine Harvey Holt in Mozambique, and ultimate decision to remain in the sun. Artistic Choices: Specific Selburose sweater pattern in Scene 01, exact color of her emerald evening halter dress at the Polana Hotel (Scene 08), and specific cut of her Marrakech embroidered tunic (Scene 09).", "adaptation_note": "In Scene 05 (Algarve sea caves sunbathing), the prompt requested topless sunbathing supported by the novel's Algarve beach chapters; the image generator's safety filter rendered a matching low-cut yellow bikini top instead of bare breasts. All other mature sensual and revealing elements (string bikini, sheer peasant blouse, backless halter dress) are preserved intact.", "scenes": [{"num": 1, "file": "britta_01_tromso_winter.jpg", "title": "Arctic Winter Darkness on the Pier", "chapter": "Chapter II (Britta)", "pages": "pp. 73–92 (RH)", "location": "Tromsø, Norway (Winter 1968–69)", "rating": "PG", "canon": "18-year-old Britta trapped in the polar darkness and freezing cold of Tromsø, yearning for warmth and escape from her parents' unfulfilled life; pale northern complexion and platinum-blonde hair.", "artistic": "Traditional cream-and-charcoal Norwegian Selburose Fair Isle knit sweater, navy wool duffel coat, knitted wool cap, and amber harbor dock light.", "adaptation": "None required."}, {"num": 2, "file": "britta_02_torremolinos_bikini.jpg", "title": "Sun-Worshipper on La Carihuela Beach", "chapter": "Chapter II / Chapter VII (Torremolinos)", "pages": "pp. 118–128, 325–342 (RH)", "location": "Torremolinos, Costa del Sol, Spain", "rating": "PG-13 / R (Sensual Beachwear)", "canon": "Britta's transformation under the Spanish sun; golden-bronze tan, statuesque figure in a daring two-piece bikini emerging from the Mediterranean surf.", "artistic": "Textured white 1969 string bikini and wet slicked-back hair in bright Spanish midday sunlight.", "adaptation": "None required."}, {"num": 3, "file": "britta_03_the_alamo_bar.jpg", "title": "Evening at The Alamo Bar with Joe", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 345–370 (RH)", "location": "The Alamo Bar, Torremolinos, Spain", "rating": "R (Revealing / Sheer Garment)", "canon": "Meeting the other drifters and pairing off with American draft-evader Joe in the subterranean hangout The Alamo over sangria.", "artistic": "Unlined, semi-sheer off-the-shoulder cream cotton peasant blouse, low-rise flared jeans with wide leather belt, warm amber candlelight.", "adaptation": "None required."}, {"num": 4, "file": "britta_04_pamplona_san_fermin.jpg", "title": "Feria de San Fermín Street Fiesta", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 412–448 (RH)", "location": "Pamplona, Navarra, Spain (July 1969)", "rating": "PG-13", "canon": "The group's immersion in the non-stop street fiesta of San Fermín, drinking from leather bota bags in wine-stained festival whites.", "artistic": "Sleeveless white cotton shirt knotted at her tanned midriff, white trousers, crimson pañuelo neck scarf and waist sash.", "adaptation": "None required."}, {"num": 5, "file": "britta_05_algarve_sea_caves.jpg", "title": "Sunbathing in the Golden Limestone Grotto", "chapter": "Chapter IX (Algarve)", "pages": "pp. 495–525 (RH)", "location": "Coastal Sea Caves, Algarve, Portugal", "rating": "R (Sensual Sunbathing)", "canon": "Idyllic days of sun-worshipping among the golden ochre limestone cliffs and hidden coves of the Portuguese Algarve coast.", "artistic": "Yellow 1969 ribbed two-piece swimwear on a woven striped Portuguese beach blanket inside a sea cave arch.", "adaptation": "Safety filter adaptation: Requested topless sunbathing was automatically adapted by the image model to include a minimal yellow bikini top."}, {"num": 6, "file": "britta_06_alte_commune_poppy.jpg", "title": "The Whitewashed Village of Alte & the Poppies", "chapter": "Chapter IX (Algarve)", "pages": "pp. 530–562 (RH)", "location": "Alte, Algarve Interior, Portugal", "rating": "PG-13", "canon": "The group's retreat to the hill village of Alte in the Algarve and the recurring motif of wild red poppies.", "artistic": "Unbuttoned embroidered Afghan suede vest over a crochet halter top, denim cut-off shorts, bare dusty ankles, and a red poppy tucked behind her braided hair.", "adaptation": "None required."}, {"num": 7, "file": "britta_07_mozambique_safari.jpg", "title": "Gorongosa Savanna Excursion", "chapter": "Chapter X (Mozambique)", "pages": "pp. 585–620 (RH)", "location": "Gorongosa / Savanna, Mozambique", "rating": "PG-13", "canon": "The expedition into southeastern Africa (Mozambique) where Britta is drawn to the worldly competence of older American Harvey Holt.", "artistic": "Khaki bush shirt knotted above her bare tanned waist, tailored safari shorts, desert boots, and a vintage Land Rover backdrop.", "adaptation": "None required."}, {"num": 8, "file": "britta_08_lourenco_marques_polana.jpg", "title": "Dinner at the Polana Hotel with Harvey Holt", "chapter": "Chapter X (Mozambique)", "pages": "pp. 625–648 (RH)", "location": "Polana Hotel, Lourenço Marques, Mozambique", "rating": "R (Mature Sensual Elegance)", "canon": "Britta enjoying colonial luxury and romance with Harvey Holt in Lourenço Marques, contrasting with the counterculture austerity of the younger drifters.", "artistic": "Backless emerald-green silk halter evening gown, gold hoop earrings, tropical veranda lanterns overlooking the Indian Ocean.", "adaptation": "None required."}, {"num": 9, "file": "britta_09_marrakech_souk.jpg", "title": "Wandering the Djemaa el-Fna & Souks", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 665–695 (RH)", "location": "Medina Souks, Marrakech, Morocco", "rating": "PG-13", "canon": "The group's convergence in Marrakech amidst the sensory overload of the Moroccan markets and brass-lantern alleys.", "artistic": "Semi-sheer ivory Moroccan gauze tunic embroidered with silver thread, unlaced at the neckline, flared jeans, and leather babouche slippers.", "adaptation": "None required."}, {"num": 10, "file": "britta_10_torremolinos_farewell.jpg", "title": "Final Sun-Drenched Departure on the Costa del Sol", "chapter": "Chapter XI / Epilogue", "pages": "pp. 735–751 (RH)", "location": "Torremolinos, Spain (1970)", "rating": "PG", "canon": "After the dissolution of the group following Monica's death, Britta remains committed to a life in the warm Mediterranean sun.", "artistic": "Sky-blue ribbed tank top, white wide-leg linen trousers, oversized round late-60s sunglasses on her head, golden-hour sea balcony.", "adaptation": "None required."}]}, {"id": "monica", "name": "Monica", "role": "The Rebellious Aristocrat & Tragic Hedonist", "origin": "Vwarda (East Africa) & London, UK", "age": "18–20 (Adult)", "chapter_intro": "Chapter III: Monica (pp. 129–184 RH / pp. 137–195 FC)", "physical_anchor": "Lithe, slender 5'6\" figure; aristocratic English bone structure that became 'too beautiful, too quickly'; high cheekbones, sultry hazel-green cat-like eyes, full pouty lips, and rich, glossy dark chestnut-auburn hair. Chronological physical progression: vibrant, magnetic, and healthy in Vwarda, London, Spain, and Portugal (Scenes 01–06); subtly thinner and high-strung in Mozambique (Scene 07); progressively gaunt, hollow-cheeked, bruised around the eyes, and jaundiced/feverish in Marrakech (Scenes 08–10) as she succumbs to heroin skin-popping and fatal hepatitis.", "canon_vs_artistic": "Canon: Daughter of British colonial official Sir Charles in fictional Vwarda; precocious sexual and social rebellion ('too beautiful, too quickly'); London nightclub/drug scene; relationship with Cato in Torremolinos and Algarve; escalating experimentation from marijuana/hashish and LSD to heroin ('Big-H' skin-popping); and tragic death in Marrakech from hepatitis contracted via dirty needles. Artistic Choices: Specific silver-and-black Soho mini-dress (Scene 02), leopard-print bikini (Scene 04), and crimson-and-gold Moroccan caftan (Scene 08).", "adaptation_note": "Full R-rated mature realism preserved across her arc: sheer black chiffon top in Scene 03, topless/robed morning intimacy in Scene 06, and unflinching depiction of her physical emaciation, withdrawal, and fatal hepatitis fever in Scenes 09–10.", "scenes": [{"num": 1, "file": "monica_01_vwarda_colonial.jpg", "title": "Colonial Upbringing at Government House", "chapter": "Chapter III (Monica)", "pages": "pp. 129–152 (RH)", "location": "Vwarda, British East Africa", "rating": "PG", "canon": "Growing up privileged and fiercely rebellious in the African protectorate of Vwarda under her diplomat father's rigid colonial expectations.", "artistic": "Crisp white English lawn-party sundress with top button undone, wooden tennis racket, blooming purple jacaranda trees.", "adaptation": "None required."}, {"num": 2, "file": "monica_02_london_soho_club.jpg", "title": "Swinging London Underground Rebellion", "chapter": "Chapter III (Monica)", "pages": "pp. 158–184 (RH)", "location": "Soho, London, England (1969)", "rating": "PG-13", "canon": "Sent back to England for schooling, Monica plunges into London's late-60s counterculture, clubs, and drug scene.", "artistic": "Metallic silver-and-black plunging mini-dress, heavy late-60s kohl eyeliner, cigarette in hand under neon club lighting.", "adaptation": "None required."}, {"num": 3, "file": "monica_03_torremolinos_alamo.jpg", "title": "Dancing at The Alamo Bar", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 348–375 (RH)", "location": "The Alamo Bar, Torremolinos, Spain", "rating": "R (Sheer Garment / Sensuality)", "canon": "Monica's magnetic, provocative presence in Torremolinos where she begins her tempestuous relationship with Cato.", "artistic": "Sheer black chiffon bohemian blouse tied at the midriff, low-slung black velvet flared trousers with silver concho belt.", "adaptation": "None required."}, {"num": 4, "file": "monica_04_costa_del_sol_beach.jpg", "title": "Sunbathing on the Rocks of Torremolinos", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 376–395 (RH)", "location": "Torremolinos Beach, Spain", "rating": "PG-13 / R", "canon": "Lounging on the Costa del Sol beaches before local drug dealers draw the group into danger.", "artistic": "1969 leopard-print bikini, amber aviator sunglasses, and vintage suntan oil bottle on Mediterranean coastal rocks.", "adaptation": "None required."}, {"num": 5, "file": "monica_05_pamplona_revelry.jpg", "title": "Midnight Fiesta in the Plaza del Castillo", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 420–455 (RH)", "location": "Pamplona, Spain (July 1969)", "rating": "PG-13", "canon": "Monica's wild, uninhibited abandon during the all-night street parties of the Feria de San Fermín.", "artistic": "Wine-splashed off-the-shoulder white peasant blouse, white flared jeans, and red Basque pañuelo tied as a headband under fireworks.", "adaptation": "None required."}, {"num": 6, "file": "monica_06_algarve_cottage_intimate.jpg", "title": "Intimate Morning in the Alte Stone Villa", "chapter": "Chapter IX (Algarve)", "pages": "pp. 502–538 (RH)", "location": "Alte, Algarve, Portugal", "rating": "R (Sensual Nudity / Implied Nudity)", "canon": "The group moves to Alte in the Algarve partly to separate Monica from Torremolinos drug pushers; her intimate life with Cato.", "artistic": "Unfastened patterned silk kimono robe draped loosely over bare shoulders and torso on rumpled white linen sheets in slatted morning light.", "adaptation": "None required."}, {"num": 7, "file": "monica_07_mozambique_casino.jpg", "title": "Lourenço Marques Nightlife & Restlessness", "chapter": "Chapter X (Mozambique)", "pages": "pp. 610–645 (RH)", "location": "Lourenço Marques, Mozambique", "rating": "PG-13", "canon": "In southern Africa, Monica grows increasingly restless and high-strung, craving the hard-drug subculture she left behind.", "artistic": "Burgundy satin spaghetti-strap slip dress, beaded African choker, gin and tonic under tropical ceiling fans, visibly thinner physique.", "adaptation": "None required."}, {"num": 8, "file": "monica_08_marrakech_hashish_den.jpg", "title": "The Kif & Hashish Candlelit Riad", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 670–702 (RH)", "location": "Marrakech Medina, Morocco", "rating": "R (Drug Culture / Sensual Caftan)", "canon": "In Marrakech, Monica immerses herself in the hashish/kif and acid dens of the medina, pulling away from the group's warnings.", "artistic": "Deeply unlaced crimson-and-gold embroidered Moroccan caftan, heavy silver Berber jewelry, brass hookah pipe, and pierced brass lanterns.", "adaptation": "None required."}, {"num": 9, "file": "monica_09_marrakech_heroin_spiral.jpg", "title": "Descent into 'Big-H' (Heroin & Withdrawal)", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 705–722 (RH)", "location": "Backroom in the Medina, Marrakech", "rating": "R (Gritty Addiction & Physical Decline)", "canon": "Monica crosses the line into 'skin-popping' heroin ('Big-H') with unsterile needles in a squalid Marrakech room, wasting away physically.", "artistic": "Faded, stained sleeveless cotton slip, hollow cheeks, dark bruised eye circles, clutching her sore-marked arm on an iron cot by candlelight.", "adaptation": "None required (regenerated in v2 to remove Polaroid border for full-bleed consistency)."}, {"num": 10, "file": "monica_10_marrakech_final_fever.jpg", "title": "Final Hepatitis Fever Before Her Tragic Death", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 723–738 (RH)", "location": "Marrakech, Morocco", "rating": "R (Tragic Illness & Mortality)", "canon": "Monica's fatal case of acute serum hepatitis contracted from dirty needles in Marrakech—the tragedy that shatters the drifters' commune.", "artistic": "Gaunt, jaundiced complexion propped against coarse burlap pillows under a striped Berber wool blanket, a single beam of dusty light from a high window.", "adaptation": "None required (regenerated in v2 to remove Polaroid border for full-bleed consistency)."}]}, {"id": "gretchen", "name": "Gretchen", "role": "The Radcliffe Folk-intellectual & Protest Survivor", "origin": "Boston / Cambridge, Massachusetts, USA", "age": "20–21 (Adult)", "chapter_intro": "Chapter VI: Gretchen (pp. 269–322 RH / pp. 285–341 FC)", "physical_anchor": "Tall (5'7\"), natural athletic New England build, expressive intelligent face with warm brown eyes, light natural freckles across the nose bridge, high forehead, and no makeup. Long, straight, glossy medium-dark brown hair parted cleanly down the middle. Chronological physical progression: fresh bleeding cut near left eyebrow, purple cheekbone bruise, and nightstick welt on her collarbone/shoulder in Scenes 01–02 (1968 protest & police lockup); healed facial skin with a faint scar on her left collarbone/brow from Scene 03 onward, frequently accompanied by her vintage mahogany acoustic guitar.", "canon_vs_artistic": "Canon: Radcliffe student from a patrician Boston family; active in anti-Vietnam War protests and aiding draft dodgers; brutalized and traumatized by police during the 1968 demonstrations (Chicago/Boston); travels with her acoustic guitar singing traditional Scottish/English ballads (Child Ballads); connects 1960s youth rebellion to medieval history (Froissart's peasant revolts); forms a deep bond with Yigal and George Fairbanks; resolves to write a book at the novel's end. Artistic Choices: 35mm rangefinder camera at the protest (Scene 01), specific corduroy jacket and sticker-covered guitar case in Scene 10.", "adaptation_note": "In Scene 07 (Algarve morning swim), an initial prompt with explicit anatomical wording triggered a safety filter refusal; it was adapted by depicting Gretchenchest-deep in crystal turquoise water with bare shoulders and her healed collarbone scar visible, preserving the scene's natural liberation and emotional healing.", "scenes": [{"num": 1, "file": "gretchen_01_chicago_protest_riot.jpg", "title": "Anti-War Demonstration & Police Brutality", "chapter": "Chapter VI (Gretchen)", "pages": "pp. 269–295 (RH)", "location": "Chicago / Boston Street Riot (1968)", "rating": "R (Violence & Riot Injuries)", "canon": "Gretchen caught in the violent police crackdown during a 1968 anti-Vietnam War demonstration, suffering nightstick blows that leave physical and psychological scars.", "artistic": "Torn blue chambray shirt under an olive field jacket ripped at the shoulder, bleeding brow cut, purple cheekbone contusion, tear-gas smoke and police strobes.", "adaptation": "None required."}, {"num": 2, "file": "gretchen_02_police_lockup_bruised.jpg", "title": "Trauma in the Precinct Holding Cell", "chapter": "Chapter VI (Gretchen)", "pages": "pp. 296–315 (RH)", "location": "Police Precinct Lockup, USA (1968)", "rating": "R (Injury & Psychological Trauma)", "canon": "The humiliating, brutal experience in police custody that breaks Gretchen's trust in American institutions and prompts her flight to Europe.", "artistic": "Stark fluorescent cell lighting, clutching her torn chambray shirt over her bruised collarbone and swollen eye.", "adaptation": "None required."}, {"num": 3, "file": "gretchen_03_torremolinos_guitar.jpg", "title": "Singing Traditional Ballads at The Alamo", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 350–380 (RH)", "location": "The Alamo Bar, Torremolinos, Spain", "rating": "PG", "canon": "Gretchen as the musical and moral anchor of the group, playing her acoustic guitar and singing traditional English and Scottish folk ballads.", "artistic": "Vintage mahogany acoustic guitar, olive-drab US Army M-65 surplus jacket over a white cotton peasant blouse, candlelit stone tavern.", "adaptation": "None required."}, {"num": 4, "file": "gretchen_04_torremolinos_conversation.jpg", "title": "Debating Medieval History & Politics with Fairbanks", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 382–404 (RH)", "location": "Café Terrace, Torremolinos, Spain", "rating": "PG", "canon": "Gretchen's sharp Radcliffe intellect; discussing historical parallels (like Froissart's medieval peasant rebellions) with narrator George Fairbanks.", "artistic": "Sleeveless navy turtleneck, wire-rimmed round reading glasses, silver peace pendant, and a paperback of Froissart's Chronicles beside her espresso.", "adaptation": "None required."}, {"num": 5, "file": "gretchen_05_pamplona_encierro.jpg", "title": "Watching the Running of the Bulls from the Barrera", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 435–468 (RH)", "location": "Pamplona, Spain (July 1969)", "rating": "PG", "canon": "Watching tensely from the wooden barricades as Yigal, Joe, and Harvey Holt test their courage in front of the fighting bulls.", "artistic": "Crisp white cotton shirt with rolled sleeves, blue jeans, and red San Fermín neckerchief at the wooden street fence.", "adaptation": "None required."}, {"num": 6, "file": "gretchen_06_algarve_campfire_ballad.jpg", "title": "Singing by the Beach Campfire Under the Cliffs", "chapter": "Chapter IX (Algarve)", "pages": "pp. 508–540 (RH)", "location": "Praia da Rocha / Algarve Coast, Portugal", "rating": "PG", "canon": "Evening communal gatherings on the Portuguese coast with Gretchen strumming ballads by the driftwood fire.", "artistic": "Chunky cream fisherman's knit cardigan over a dark tank top, rolled-up jeans, barefoot in the firelit sand.", "adaptation": "None required."}, {"num": 7, "file": "gretchen_07_algarve_cove_swim.jpg", "title": "Morning Swim & Healing in the Atlantic Cove", "chapter": "Chapter IX (Algarve)", "pages": "pp. 542–565 (RH)", "location": "Secluded Sea Cove, Algarve, Portugal", "rating": "R (Natural Skinny-Dipping / Implied Nudity)", "canon": "The restorative peace of the Algarve where Gretchen heals from her American political trauma in the Atlantic sun and sea.", "artistic": "Immersed to the chest in clear turquoise water beneath golden sea arches at dawn, wet hair over bare shoulders, healed collarbone scar visible.", "adaptation": "Safety filter adaptation: Chest-deep water framing used to pass safety filters while preserving the natural skinny-dipping context and visible healed scar."}, {"num": 8, "file": "gretchen_08_mozambique_safari_camp.jpg", "title": "Observing the Wildlife & Ecology of Mozambique", "chapter": "Chapter X (Mozambique)", "pages": "pp. 590–630 (RH)", "location": "Gorongosa Bush Camp, Mozambique", "rating": "PG", "canon": "Gretchen chronicling the group's African experiences and engaging with the ecological and political debates in Mozambique.", "artistic": "Tan cotton safari work shirt, olive cargo trousers, leather hiking boots, low ponytail, holding field notebooks beside a canvas tent.", "adaptation": "None required."}, {"num": 9, "file": "gretchen_09_marrakech_vigil.jpg", "title": "Caring for the Sick Monica in the Medina", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 715–734 (RH)", "location": "Marrakech Medina, Morocco", "rating": "PG-13", "canon": "Gretchen's loyal, compassionate vigil trying to nurse Monica through her fatal hepatitis fever in Marrakech.", "artistic": "Indigo-dyed Moroccan cotton tunic, kneeling with a ceramic water bowl and damp cloth in a dim earthen room.", "adaptation": "None required."}, {"num": 10, "file": "gretchen_10_departure_writer.jpg", "title": "Ready to Return & Write Her Book", "chapter": "Chapter XI / Epilogue", "pages": "pp. 740–751 (RH)", "location": "European Train Platform (1970)", "rating": "PG", "canon": "Gretchen's mature resolution at the end of the novel to return and write a book synthesizing her generation's journey.", "artistic": "Tan corduroy jacket over a burgundy turtleneck, carrying her travel-stickered hardshell guitar case and canvas rucksack.", "adaptation": "None required."}]}, {"id": "joe", "name": "Joe", "role": "The American Draft Evader & Aspiring Ecologist", "origin": "Oregon / California, USA", "age": "20–21 (Adult)", "chapter_intro": "Chapter I: Joe (pp. 3–72 RH / pp. 1–77 FC)", "physical_anchor": "Tall (6'1\"), lean, broad-shouldered West Coast swimmer/hiker build, square jaw, earnest clear hazel-blue eyes, sun-freckled nose, and open American features. Chronological hair & facial hair progression: neat, short-to-medium sandy-brown hair and clean-shaven in Scene 01 (1968 university dorm); shaggy sun-bleached hair over ears/collar with light stubble in Scenes 02–05 (Torremolinos & Pamplona); collar-to-shoulder-length sun-streaked sandy hair and a full, neat sandy beard/mustache in Scenes 06–10 (Algarve, Mozambique, Marrakech, and Epilogue).", "canon_vs_artistic": "Canon: West Coast college student who refuses induction into the Vietnam War; flees to Spain and meets George Fairbanks and Britta in Torremolinos; drives the group's Volkswagen camper bus; runs with the bulls in Pamplona; develops a deep passion for soil conservation, anti-desertification, and wildlife ecology in Portugal, Mozambique, and Morocco; continues drifting eastward toward Asia at the close of the novel. Artistic Choices: 'Berkeley Track & Field' sweatshirt (Scene 01), shearling-collar suede jacket (Scenes 02 & 10), and striped Berber djellaba cloak in the Atlas foothills (Scene 09).", "adaptation_note": "Full R-rated sensual realism preserved in Scene 04 (shirtless morning in the Torremolinos pension bed with Britta). No safety filter restrictions encountered.", "scenes": [{"num": 1, "file": "joe_01_california_draft_notice.jpg", "title": "The Selective Service 1-A Induction Notice", "chapter": "Chapter I (Joe)", "pages": "pp. 3–38 (RH)", "location": "California University Dorm Room (1968)", "rating": "PG", "canon": "Clean-cut college student Joe receiving his military draft notice for Vietnam and making the life-altering decision to evade the draft.", "artistic": "Clean-shaven, short sandy hair, gray 'Berkeley Track & Field' sweatshirt, Levi's jeans, packed olive duffel bag, and 1968 dorm posters.", "adaptation": "None required."}, {"num": 2, "file": "joe_02_torremolinos_arrival.jpg", "title": "Drifting into the Costa del Sol with Backpack", "chapter": "Chapter I / Chapter VII (Torremolinos)", "pages": "pp. 45–72, 325–344 (RH)", "location": "Torremolinos Promenade, Spain (1969)", "rating": "PG", "canon": "Joe arriving on the southern coast of Spain as a transient American draft dodger, his hair growing out.", "artistic": "Shaggy sandy hair, light stubble, weathered tan suede jacket with sheepskin collar, faded work shirt, and aluminum-frame canvas backpack.", "adaptation": "None required."}, {"num": 3, "file": "joe_03_the_alamo_barkeep.jpg", "title": "Meeting Britta at The Alamo Bar", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 345–368 (RH)", "location": "The Alamo Bar, Torremolinos, Spain", "rating": "PG-13", "canon": "Joe working/hanging out in The Alamo bar in Torremolinos and falling instantly for the Norwegian girl Britta.", "artistic": "Unbuttoned red-and-tan plaid flannel shirt over a white ribbed tank top, braided leather wristband, holding a Spanish beer bottle.", "adaptation": "None required."}, {"num": 4, "file": "joe_04_torremolinos_lovers_morning.jpg", "title": "Intimate Morning in the Pension Room", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 369–390 (RH)", "location": "Pension Bedroom, Torremolinos, Spain", "rating": "R (Sensual Intimacy)", "canon": "Joe and Britta's sunlit romance in Torremolinos as young lovers escaping the pressures of their homelands.", "artistic": "Shirtless on the edge of the bed with white linen sheet draped across his lap, morning light through slatted shutters across his swimmer's back and torso.", "adaptation": "None required."}, {"num": 5, "file": "joe_05_pamplona_bull_run.jpg", "title": "Running in the Encierro (Feria de San Fermín)", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 440–472 (RH)", "location": "Calle Estafeta, Pamplona, Spain", "rating": "PG-13", "canon": "Joe joining Yigal and Harvey Holt in the morning running of the bulls through the narrow streets of Pamplona.", "artistic": "Traditional white cotton shirt and trousers, red faja sash and red neck kerchief, rolled-up newspaper in hand as bulls charge behind him.", "adaptation": "None required."}, {"num": 6, "file": "joe_06_algarve_vw_camper.jpg", "title": "Driving the Group's Volkswagen Microbus", "chapter": "Chapter IX (Algarve)", "pages": "pp. 490–515 (RH)", "location": "Coastal Cliff Road, Algarve, Portugal", "rating": "PG", "canon": "Joe serving as the primary driver of the group's pop-top Volkswagen camper bus across Iberia, now sporting a beard and longer hair.", "artistic": "Sleeveless denim vest over a bare tanned chest, aviator sunglasses, neat sandy beard, leaning out the window of a 1968 VW Type 2 bus.", "adaptation": "None required."}, {"num": 7, "file": "joe_07_alte_soil_erosion.jpg", "title": "Examining Overgrazed Hills Above Alte", "chapter": "Chapter IX (Algarve)", "pages": "pp. 535–560 (RH)", "location": "Alte Hills, Algarve, Portugal", "rating": "PG", "canon": "Joe's growing intellectual awakening to environmental degradation, soil erosion, and land misuse in the Mediterranean basin.", "artistic": "Kneeling among terraced olive trees sifting parched red soil, sweat-stained khaki work shirt with rolled sleeves, shoulder-length hair and beard.", "adaptation": "None required."}, {"num": 8, "file": "joe_08_mozambique_savanna_ecology.jpg", "title": "Studying Wildlife Management in the Savanna", "chapter": "Chapter X (Mozambique)", "pages": "pp. 595–632 (RH)", "location": "Mozambique Savanna, East Africa", "rating": "PG", "canon": "In Mozambique, Joe is fascinated by wildlife preservation, ecology, and the balance between human populations and nature.", "artistic": "Olive-green bush shirt, khaki shorts, field binoculars around his neck, herds of zebra on the golden plains behind him.", "adaptation": "None required."}, {"num": 9, "file": "joe_09_marrakech_atlas_desert.jpg", "title": "Witnessing Goats & Desertification in the Atlas Foothills", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 680–708 (RH)", "location": "High Atlas Foothills near Marrakech, Morocco", "rating": "PG", "canon": "A memorable Michener ecological passage: Joe observing Moroccan goats climbing argan/scrub trees and stripping the land into desert.", "artistic": "Striped woven Moroccan wool djellaba cloak worn open over a chambray shirt and dusty jeans, goats in the argan branches with snow-capped Atlas peaks behind.", "adaptation": "None required."}, {"num": 10, "file": "joe_10_eastward_drifter_epilogue.jpg", "title": "The Eternal Drifter Heading East Toward Asia", "chapter": "Chapter XI / Epilogue", "pages": "pp. 738–751 (RH)", "location": "Mediterranean Crossroads (1970)", "rating": "PG", "canon": "Unable to return to the US because of his draft status and having lost Britta to Harvey, Joe continues drifting eastward toward Asia.", "artistic": "Full sandy beard and long sun-streaked hair, weathered sheepskin-collar suede jacket, heavy frame backpack at sunset.", "adaptation": "None required."}]}, {"id": "cato", "name": "Cato (Paxton)", "role": "The Black Militant Fugitive & Spiritual Seeker", "origin": "Philadelphia, Pennsylvania, USA", "age": "21–22 (Adult)", "chapter_intro": "Chapter IV: Cato (pp. 185–228 RH / pp. 196–242 FC)", "physical_anchor": "Tall (6'2\"), lean and muscular athletic build with broad shoulders, deep warm mahogany-brown skin, high sculpted cheekbones, piercing dark brown eyes, strong jawline, and a neatly trimmed mustache and goatee. Natural late-1960s medium-full Afro that grows slightly fuller over the journey.", "canon_vs_artistic": "Canon: Brilliant, radicalized Black student from Philadelphia (traveling under the alias 'Paxton') who flees the US after a militant church/bank reparations protest turns violent; pairs with British runaway Monica in Torremolinos and Alte; debates race, anti-Semitism, and global politics with Yigal and Fairbanks; experiences visceral anger at colonial segregation in Mozambique; undergoes a profound spiritual awakening to Islam in Morocco; resolves to return to America for the revolutionary struggle after Monica's death. Artistic Choices: Geometric gold/red/black West African dashiki and carved wooden medallion (Scene 03), rust-orange swim trunks (Scene 04), and white Moroccan djellaba and kufi outside the Koutoubia Mosque (Scene 08).", "adaptation_note": "Full R-rated sensual realism preserved in Scene 06 (shirtless intimate scene in the Alte cottage). Scene 03 was regenerated in v2 to ensure Monica seated beside him has her canonical dark chestnut-auburn hair.", "scenes": [{"num": 1, "file": "cato_01_philadelphia_reparations.jpg", "title": "Militant Reparations Rally in Philadelphia", "chapter": "Chapter IV (Cato)", "pages": "pp. 185–210 (RH)", "location": "Philadelphia, Pennsylvania (1968)", "rating": "PG-13", "canon": "Cato leading a militant Black Power demonstration demanding financial reparations before the protest spirals into legal jeopardy.", "artistic": "Fitted black leather jacket over a black turtleneck, tilted black beret on his Afro, speaking passionately into a vintage megaphone.", "adaptation": "None required."}, {"num": 2, "file": "cato_02_fugitive_escape_docks.jpg", "title": "Going Underground as 'Paxton' & Escaping the US", "chapter": "Chapter IV (Cato)", "pages": "pp. 211–228 (RH)", "location": "East Coast Cargo Docks (1968–69)", "rating": "PG", "canon": "Fleeing arrest under a false passport ('Paxton') to join the international drifter trail in Europe.", "artistic": "Dark navy wool peacoat with upturned collar, tinted wire-rim sunglasses, leather overnight bag on a foggy, rain-slicked pier at night.", "adaptation": "None required."}, {"num": 3, "file": "cato_03_torremolinos_alamo_cool.jpg", "title": "Holding Court at The Alamo Bar with Monica", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 346–378 (RH)", "location": "The Alamo Bar, Torremolinos, Spain", "rating": "PG-13", "canon": "Cato's charismatic, cool presence in Torremolinos where he attracts the rebellious British diplomat's daughter Monica.", "artistic": "Gold, red, and black woven West African dashiki, carved wooden medallion necklace, gold-rimmed aviators, with dark-haired Monica beside him.", "adaptation": "Regenerated in v2 to ensure Monica in the booth beside him has her canonical dark chestnut-auburn hair."}, {"num": 4, "file": "cato_04_torremolinos_beach_sun.jpg", "title": "On the Beach of the Costa del Sol", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 379–398 (RH)", "location": "Torremolinos Beach, Spain", "rating": "PG-13", "canon": "Experiencing temporary freedom from American racial tensions on the Mediterranean beaches looking toward Africa.", "artistic": "Shirtless showcasing his muscular 6'2\" build, rust-orange 1969 swim trunks, wooden medallion, and woven straw hat.", "adaptation": "None required."}, {"num": 5, "file": "cato_05_pamplona_wine_fiesta.jpg", "title": "San Fermín Revelry & Philosophical Debates", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 425–465 (RH)", "location": "Tavern in Pamplona, Spain (July 1969)", "rating": "PG-13", "canon": "Heated ideological clashes and camaraderie between Cato and Israeli soldier Yigal during the Pamplona festival.", "artistic": "Unbuttoned white linen shirt showing his chest and medallion, crimson red pañuelo neck scarf, debating over glasses of red Rioja wine.", "adaptation": "None required."}, {"num": 6, "file": "cato_06_algarve_intimate_villa.jpg", "title": "Intimate Afternoon in the Alte Stone Cottage", "chapter": "Chapter IX (Algarve)", "pages": "pp. 505–545 (RH)", "location": "Alte, Algarve, Portugal", "rating": "R (Sensual Intimacy)", "canon": "Cato and Monica's passionate, volatile relationship during the group's communal stay in the Portuguese village of Alte.", "artistic": "Shirtless reclining on a sun-dappled bed in a whitewashed room, white sheet draped across his hips, slatted golden shutter light.", "adaptation": "None required."}, {"num": 7, "file": "cato_07_mozambique_colonial_tension.jpg", "title": "Confronting Colonial Reality in Lourenço Marques", "chapter": "Chapter X (Mozambique)", "pages": "pp. 600–642 (RH)", "location": "Lourenço Marques, Mozambique", "rating": "PG-13", "canon": "Cato's fury and political awakening upon witnessing Portuguese colonial rule and racial hierarchy in southern Africa.", "artistic": "Belted khaki safari jacket over an open-necked black shirt, walking past colonial cafés and military police with burning intensity.", "adaptation": "None required."}, {"num": 8, "file": "cato_08_marrakech_islamic_awakening.jpg", "title": "Spiritual Awakening at the Koutoubia Mosque", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 685–712 (RH)", "location": "Koutoubia Mosque, Marrakech, Morocco", "rating": "PG", "canon": "In Morocco, Cato discovers the dignity and brotherhood of Islam, finding spiritual grounding away from Western materialism.", "artistic": "Crisp white Moroccan djellaba and white knit kufi cap over his Afro in the warm sandstone sunset glow of the Koutoubia minaret.", "adaptation": "None required."}, {"num": 9, "file": "cato_09_marrakech_monica_grief.jpg", "title": "Grief & Guilt Over Monica's Death in the Medina", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 725–738 (RH)", "location": "Riad Courtyard, Marrakech, Morocco", "rating": "PG-13", "canon": "Devastated by Monica's death from dirty needles and hepatitis, Cato rejects the self-destructive drug counterculture.", "artistic": "Unbuttoned dark denim shirt, leaning his forehead against a mosaic zellige tile column in quiet anguish.", "adaptation": "None required."}, {"num": 10, "file": "cato_10_return_to_revolution.jpg", "title": "Preparing to Return to America for the Struggle", "chapter": "Chapter XI / Epilogue", "pages": "pp. 740–751 (RH)", "location": "Tangier / Casablanca Port, Morocco (1970)", "rating": "PG", "canon": "At the novel's conclusion, Cato decides to return to the United States to face his legal consequences and fight for Black liberation.", "artistic": "Black leather jacket over a sand-colored tunic at the Atlantic harbor wall, jaw set with hardened maturity.", "adaptation": "None required."}]}, {"id": "yigal", "name": "Yigal (Yigal Melnikoff)", "role": "The Six-Day War Paratrooper & Triple Citizen", "origin": "Israel / USA / United Kingdom", "age": "20–22 (Adult)", "chapter_intro": "Chapter V: Yigal (pp. 229–268 RH / pp. 243–284 FC)", "physical_anchor": "Compact, powerful, muscular soldier's build (5'10\"), deep olive Mediterranean/Middle Eastern complexion, thick curly dark brown/black hair, thick expressive eyebrows, strong Roman/Semitic nose, cleft chin, and intense, observant dark brown eyes. Bears a faded shrapnel/bullet graze scar on his upper right deltoid/shoulder from the 1967 Six-Day War.", "canon_vs_artistic": "Canon: Grandson of Zionist pioneer Melnikoff; holds triple citizenship (Israel, US, UK) due to family birthplaces and must legally choose one permanent nationality at age 22; battle-hardened veteran of the 1967 Six-Day War; disciplined and sceptical of the drifters' drug use and Joe's draft evasion; proves his extraordinary physical courage running with the bulls in Pamplona alongside ex-Marine Harvey Holt; unspoken longing for Britta and deep respect for Gretchen; ultimately chooses Israeli citizenship. Artistic Choices: Uzi submachine gun in Old City Jerusalem (Scene 01), fitted navy polo at The Alamo (Scene 03), and brown leather jacket in the Marrakech Mellah (Scene 09).", "adaptation_note": "Full gritty R-rated realism preserved in Scene 05 (blood-streaked Pamplona bullring rescue applying a pañuelo tourniquet to a goring victim).", "scenes": [{"num": 1, "file": "yigal_01_six_day_war_sinai.jpg", "title": "Paratrooper Veteran of the 1967 Six-Day War", "chapter": "Chapter V (Yigal)", "pages": "pp. 229–250 (RH)", "location": "Jerusalem / Sinai (June 1967)", "rating": "PG-13 (Wartime Combat Context)", "canon": "Yigal's formative experience fighting as a young Israeli soldier in the Six-Day War, setting him apart from his Western peers.", "artistic": "Sweat-stained olive IDF fatigues with rolled sleeves, canvas webbing, and an Uzi submachine gun before Jerusalem stone.", "adaptation": "None required."}, {"num": 2, "file": "yigal_02_three_passports_dilemma.jpg", "title": "The Triple-Citizenship Dilemma (Israel, US, UK)", "chapter": "Chapter V (Yigal)", "pages": "pp. 251–268 (RH)", "location": "Tel Aviv / London (1969)", "rating": "PG", "canon": "Yigal's central conflict: possessing Israeli, American, and British passports and taking a year abroad before deciding where his permanent duty lies.", "artistic": "Crisp open-collared khaki shirt, muscular forearms resting on a sunlit wooden table with three distinct passports spread before him.", "adaptation": "None required."}, {"num": 3, "file": "yigal_03_torremolinos_alamo_observer.jpg", "title": "Disciplined Observer at The Alamo Bar", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 352–385 (RH)", "location": "The Alamo Bar, Torremolinos, Spain", "rating": "PG", "canon": "Yigal joining the group in Torremolinos—clean-cut, observant, nursing an unrequited crush on Britta while challenging Joe's pacifism.", "artistic": "Fitted navy-blue short-sleeved polo shirt and khaki chinos, muscular arms crossed at the wooden bar counter.", "adaptation": "None required."}, {"num": 4, "file": "yigal_04_pamplona_encierro_bravery.jpg", "title": "Running Direct in Front of the Fighting Bulls", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 442–470 (RH)", "location": "Pamplona, Spain (July 1969)", "rating": "PG-13 (High Action)", "canon": "Yigal earning the deep respect of ex-Marine Harvey Holt by running fearlessly and honorably right in front of the horns during the encierro.", "artistic": "Traditional white San Fermín shirt and trousers with red faja sash and red neck kerchief, sprinting feet ahead of a black Miura bull.", "adaptation": "None required."}, {"num": 5, "file": "yigal_05_pamplona_goring_rescue.jpg", "title": "Emergency Tourniquet in the Bullring Sand", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 471–486 (RH)", "location": "Plaza de Toros, Pamplona, Spain", "rating": "R (Blood & Goring Injury Rescue)", "canon": "When runners (including Harvey) are hooked by the bulls in the arena, Yigal's battlefield combat training immediately takes over.", "artistic": "Kneeling in blood-flecked arena sand, white shirt torn and smeared with crimson blood, tying his red pañuelo as a thigh tourniquet.", "adaptation": "None required."}, {"num": 6, "file": "yigal_06_algarve_cliff_swimmer.jpg", "title": "Diving & Swimming at the Portuguese Sea Caves", "chapter": "Chapter IX (Algarve)", "pages": "pp. 510–535 (RH)", "location": "Algarve Coast, Portugal", "rating": "PG-13", "canon": "Yigal's athletic vitality during the coastal sojourn in southern Portugal.", "artistic": "Black 1969 swim briefs, climbing onto wet golden limestone rocks with seawater streaming down his muscular olive torso and healed right shoulder combat scar.", "adaptation": "None required."}, {"num": 7, "file": "yigal_07_alte_night_guitar_gretchen.jpg", "title": "Growing Closeness with Gretchen in the Alte Courtyard", "chapter": "Chapter IX (Algarve)", "pages": "pp. 545–572 (RH)", "location": "Alte Village Courtyard, Portugal", "rating": "PG", "canon": "As Britta stays with Joe (and later shifts toward Harvey), Yigal develops a warm, respectful bond with Gretchen.", "artistic": "Open-collared cream linen shirt and dark trousers, sitting on a bougainvillea-draped stone wall in warm golden lantern light.", "adaptation": "None required."}, {"num": 8, "file": "yigal_08_mozambique_safari_tracker.jpg", "title": "Armed Bush Excursion in the Mozambique Savanna", "chapter": "Chapter X (Mozambique)", "pages": "pp. 592–635 (RH)", "location": "Mozambique Bush, East Africa", "rating": "PG-13", "canon": "Yigal thriving in the rugged outdoor terrain of Mozambique alongside Harvey Holt and George Fairbanks.", "artistic": "Sweat-darkened olive bush jacket with epaulets, khaki shorts, desert boots, and a bolt-action safari rifle held at the ready.", "adaptation": "None required."}, {"num": 9, "file": "yigal_09_marrakech_jewish_mellah.jpg", "title": "Navigating the Marrakech Medina & Protecting the Group", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 675–718 (RH)", "location": "Medina / Mellah Quarter, Marrakech, Morocco", "rating": "PG-13", "canon": "In Morocco, Yigal must travel on one of his non-Israeli passports while trying to protect the group from predatory Marrakech drug rings.", "artistic": "Neutral brown leather jacket over a dark olive shirt and jeans, walking alertly through shadowy terracotta medina arches.", "adaptation": "None required."}, {"num": 10, "file": "yigal_10_return_to_israel_choice.jpg", "title": "Choosing Israel & Claiming His Identity", "chapter": "Chapter XI / Epilogue", "pages": "pp. 739–751 (RH)", "location": "Eastern Mediterranean / Haifa Approach (1970)", "rating": "PG", "canon": "Having witnessed the aimlessness and tragedy of the drifters, Yigal renounces his US and UK options and returns home to Israel.", "artistic": "Clean khaki button-down shirt with rolled sleeves, olive military duffel bag over his shoulder, holding his single blue Israeli passport on a ship deck.", "adaptation": "None required."}]}, {"id": "george", "name": "George Fairbanks", "role": "The Narrator, International Financier & Generational Bridge", "origin": "United States / Geneva, Switzerland", "age": "61 (Adult)", "chapter_intro": "Chapter I–XI (Framing Narrator throughout the novel)", "physical_anchor": "Trim, dignified, well-maintained 61-year-old build (6'0\"), thick silver-gray hair neatly parted on the side, intelligent and observant slate-blue/gray eyes framed by distinguished crow's feet, weathered patrician American features, and tortoise-shell reading glasses.", "canon_vs_artistic": "Canon: 61-year-old senior investment analyst and roving trouble-shooter for the Geneva-based World Mutual Bank; lost his own son in war, giving him a paternal fascination with the six young drifters; evaluates real estate and infrastructure in Torremolinos, the Algarve, and Mozambique (including Cabora Bassa); old-guard Hemingway-era aficionado of the bulls in Pamplona; steps in with quiet authority in Marrakech to handle the grim legal and burial arrangements when Monica dies. Artistic Choices: Savile Row charcoal three-piece suit (Scene 01), navy blazer with silk cravat at The Alamo (Scene 03), and cream linen jacket with Panama hat in Pamplona (Scene 04).", "adaptation_note": "No content adaptations required; portrayed with period-accurate 1969–1970 executive and resort sartorial elegance.", "scenes": [{"num": 1, "file": "george_01_geneva_banker_office.jpg", "title": "World Mutual Bank Executive in Geneva", "chapter": "Chapter I (Introductory Frame)", "pages": "pp. 3–25 (RH)", "location": "World Mutual Bank, Geneva / Madrid (1969)", "rating": "PG", "canon": "Fairbanks as a senior international investment advisor analyzing European and African development portfolios.", "artistic": "Charcoal-gray three-piece worsted wool suit, crisp white shirt, silk club tie, tortoise-shell reading glasses, and leather portfolio.", "adaptation": "None required."}, {"num": 2, "file": "george_02_torremolinos_real_estate.jpg", "title": "Inspecting the High-Rise Boom on the Costa del Sol", "chapter": "Chapter I / Chapter VII (Torremolinos)", "pages": "pp. 40–65, 323–340 (RH)", "location": "Torremolinos Balcony, Spain", "rating": "PG", "canon": "Fairbanks surveying the explosive 1960s concrete hotel development transforming the Spanish fishing village of Torremolinos.", "artistic": "Lightweight tan tropical worsted suit, pale blue dress shirt, striped tie, and tortoise-shell sunglasses.", "adaptation": "None required."}, {"num": 3, "file": "george_03_the_alamo_generational_bridge.jpg", "title": "Entering the Counterculture World of The Alamo Bar", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 345–395 (RH)", "location": "The Alamo Bar, Torremolinos, Spain", "rating": "PG", "canon": "Fairbanks sitting among the young runaways in Torremolinos, listening without judgment to understand why they are rejecting society.", "artistic": "Navy-blue blazer, gray flannel trousers, open-necked oxford shirt with a silk ascot/cravat, nursing a Scotch on the rocks.", "adaptation": "None required."}, {"num": 4, "file": "george_04_pamplona_cafe_rueda.jpg", "title": "Old-Guard Aficionado at the Feria de San Fermín", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 405–438 (RH)", "location": "Plaza del Castillo, Pamplona, Spain", "rating": "PG", "canon": "Fairbanks introducing the younger generation to the traditions of Pamplona, which he and his generation knew in the Hemingway era.", "artistic": "Cream linen sport coat, white dress shirt with a red San Fermín pañuelo knotted at the collar, straw Panama hat, and chilled sherry.", "adaptation": "None required."}, {"num": 5, "file": "george_05_pamplona_bullring_barrera.jpg", "title": "Watching the Corrida from the Shaded Sombra Seats", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 455–488 (RH)", "location": "Plaza de Toros, Pamplona, Spain", "rating": "PG", "canon": "Fairbanks analyzing the artistry and mortality of the afternoon bullfights from the stone barrera seats.", "artistic": "Tailored olive-tan poplin jacket, dark tie, and vintage leather binoculars.", "adaptation": "None required."}, {"num": 6, "file": "george_06_algarve_alte_mentor.jpg", "title": "Visiting the Young Drifters' Commune in Alte", "chapter": "Chapter IX (Algarve)", "pages": "pp. 515–568 (RH)", "location": "Alte, Algarve, Portugal", "rating": "PG", "canon": "Fairbanks visiting the group's idyllic retreat in the Algarve hills and engaging in long philosophical talks with Gretchen and Joe.", "artistic": "Sky-blue short-sleeved linen guayabera resort shirt, cream slacks, and leather loafers on a sunlit terracotta terrace.", "adaptation": "None required."}, {"num": 7, "file": "george_07_mozambique_cabora_bassa.jpg", "title": "Evaluating Investment Projects in Lourenço Marques", "chapter": "Chapter X (Mozambique)", "pages": "pp. 575–605 (RH)", "location": "Lourenço Marques Esplanade, Mozambique", "rating": "PG", "canon": "Fairbanks traveling to Portuguese East Africa on World Mutual Bank business and bringing the young drifters into a complex colonial landscape.", "artistic": "Crisp ivory tropical linen suit, Panama hat, dark tie, and leather briefcase on the Portuguese mosaic-tiled promenade.", "adaptation": "None required."}, {"num": 8, "file": "george_08_mozambique_safari_lodge.jpg", "title": "Evening Political Debates by the Safari Campfire", "chapter": "Chapter X (Mozambique)", "pages": "pp. 610–652 (RH)", "location": "Mozambique Savanna Camp, East Africa", "rating": "PG", "canon": "Nocturnal bush debates where Fairbanks, Harvey Holt, Cato, Yigal, and Joe clash over colonialism, war, ecology, and revolution.", "artistic": "British-cut khaki bush jacket with four buttoned pockets, silk neck cravat, seated in a canvas campaign chair with a whiskey glass.", "adaptation": "None required."}, {"num": 9, "file": "george_09_marrakech_police_morgue.jpg", "title": "The Grim Duty: Identifying Monica & Arranging Her Burial", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 725–742 (RH)", "location": "Municipal Office, Marrakech, Morocco", "rating": "PG-13 (Somber Grief)", "canon": "When Monica dies in Marrakech and the young drifters are paralyzed by shock and legal peril, Fairbanks steps in to handle the authorities and her burial.", "artistic": "Rumpled charcoal travel suit and black tie inside a stark Moroccan office, tortoise-shell glasses in hand, expression etched with paternal sorrow.", "adaptation": "None required."}, {"num": 10, "file": "george_10_torremolinos_chronicle_end.jpg", "title": "Reflecting on the Six Drifters at His Desk Overlooking the Sea", "chapter": "Chapter XI / Epilogue", "pages": "pp. 743–751 (RH)", "location": "Mediterranean Terrace (1970)", "rating": "PG", "canon": "Fairbanks concluding his chronicle of the six young drifters, hopeful that their generation will forge a wiser world despite their casualties.", "artistic": "Soft navy cashmere cardigan over an oxford shirt, tortoise-shell glasses, fountain pen and handwritten manuscript pages at sunset.", "adaptation": "None required."}]}, {"id": "harvey", "name": "Harvey Holt", "role": "The Rugged Ex-Marine Tech Rep & Man of Action", "origin": "United States (Global Overseas Tech Rep)", "age": "44 (Adult)", "chapter_intro": "Chapter VII–XI (Introduced in Torremolinos/Pamplona, major role in Mozambique)", "physical_anchor": "Stocky, barrel-chested, muscular 5'11\" build; deeply sun-weathered, leathery rugged 44-year-old face with a strong square jaw, slightly flattened boxer's nose, piercing steel-gray eyes, and a close-cropped military sandy-gray crewcut. Vintage faded USMC eagle-globe-and-anchor tattoo on his right forearm. Chronological physical progression: suffers a bloody bull-horn wound to his right thigh/hip in Pamplona (Scene 04), hospitalized with surgical bandages (Scene 05), walks with a cane and thigh bandage in the Algarve (Scene 06), and is fully recovered by the Mozambique safari (Scenes 07–10).", "canon_vs_artistic": "Canon: 44-year-old American overseas technical representative and battle-hardened ex-Marine; close friend of George Fairbanks; fiercely competitive man of action who runs with the bulls in Pamplona alongside Yigal and is gored/tossed in the arena; convalesces with Britta's sympathetic attention; organizes the Mozambique safari where his competence and rugged masculinity win Britta away from Joe. Artistic Choices: Faded USMC forearm tattoo, specific bold late-60s patterned sport shirt in Torremolinos (Scene 02), and carved wooden walking cane in the Algarve (Scene 06).", "adaptation_note": "Full R-rated injury and sensual realism preserved: bloody bull-horn thigh gash in Scene 04, shirtless hospital convalescence in Scene 05, and shirtless late-night Polana Hotel balcony romance with Britta in Scene 09.", "scenes": [{"num": 1, "file": "harvey_01_tech_rep_airfield.jpg", "title": "Overseas Heavy-Equipment Technical Representative", "chapter": "Chapter VII / Chapter VIII", "pages": "pp. 395–412 (RH)", "location": "Spanish / Mediterranean Airfield Tarmac (1969)", "rating": "PG", "canon": "Harvey Holt's career as a hard-driving American technical representative keeping heavy machinery and aircraft running across the globe.", "artistic": "Sweat-stained short-sleeved khaki work shirt, gold-rimmed aviators, rolled engineering blueprints, faded USMC forearm tattoo.", "adaptation": "None required."}, {"num": 2, "file": "harvey_02_torremolinos_bar_veteran.jpg", "title": "Drinking with George Fairbanks on the Costa del Sol", "chapter": "Chapter VII (Torremolinos)", "pages": "pp. 398–410 (RH)", "location": "Torremolinos Bar, Spain", "rating": "PG-13", "canon": "Harvey's unapologetic, hard-drinking camaraderie with George Fairbanks and blunt skepticism toward counterculture dropouts.", "artistic": "Late-1960s patterned short-sleeved sport shirt unbuttoned at the collar, bourbon on the rocks, and a cigar.", "adaptation": "None required."}, {"num": 3, "file": "harvey_03_pamplona_encierro_charge.jpg", "title": "Running with the Bulls Alongside Yigal", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 445–472 (RH)", "location": "Calle Estafeta, Pamplona, Spain", "rating": "PG-13", "canon": "44-year-old Harvey refusing to be outdone by youth, charging down the cobblestones of Pamplona shoulder-to-shoulder with Yigal.", "artistic": "White San Fermín shirt and trousers, red faja sash and red neck kerchief, fighting bulls thundering directly behind him.", "adaptation": "None required."}, {"num": 4, "file": "harvey_04_pamplona_horn_wound.jpg", "title": "Tossed & Gored in the Bullring Sand", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 473–484 (RH)", "location": "Plaza de Toros, Pamplona, Spain", "rating": "R (Bloody Bull-Horn Injury)", "canon": "Harvey hooked by a fighting bull in the Pamplona arena, taking the wound with stoic ex-Marine grit.", "artistic": "Slumped against the red wooden barrera in the arena sand, white trousers ripped open and soaked in bright red blood at the right thigh as attendants clamp the gash.", "adaptation": "None required."}, {"num": 5, "file": "harvey_05_pamplona_hospital_recovery.jpg", "title": "Convalescing in the Pamplona Clinic with Britta Visiting", "chapter": "Chapter VIII (Pamplona)", "pages": "pp. 485–492 (RH)", "location": "Hospital Clinic, Pamplona, Spain", "rating": "PG-13 / R", "canon": "Britta's admiration for Harvey's bravery begins as she visits the wounded ex-Marine in the hospital after the bull run.", "artistic": "Shirtless in a white iron hospital bed showing his broad, scarred barrel chest and heavy white bandages around his right hip/thigh, smiling at Britta.", "adaptation": "None required."}, {"num": 6, "file": "harvey_06_algarve_coastal_cane.jpg", "title": "Visiting the Portuguese Coast with a Walking Cane", "chapter": "Chapter IX (Algarve)", "pages": "pp. 550–572 (RH)", "location": "Algarve Coast, Portugal", "rating": "PG", "canon": "Harvey rejoining Fairbanks and the drifters on the Portuguese coast while his Pamplona leg wound finishes healing.", "artistic": "White open-collared polo shirt, navy shorts showing the edge of his thigh bandage, leather boat shoes, and a carved wooden walking stick.", "adaptation": "None required."}, {"num": 7, "file": "harvey_07_mozambique_safari_leader.jpg", "title": "Commanding the Safari Expedition in the Savanna", "chapter": "Chapter X (Mozambique)", "pages": "pp. 585–618 (RH)", "location": "Gorongosa / Savanna, Mozambique", "rating": "PG-13", "canon": "In Mozambique, Harvey is completely in his element—organizing vehicles, rifles, and logistics in the African bush.", "artistic": "Sweat-darkened bush hat, khaki safari jacket with cartridge loops, binoculars, and heavy-caliber rifle in the open cab of a Land Rover.", "adaptation": "None required."}, {"num": 8, "file": "harvey_08_mozambique_campfire_stories.jpg", "title": "Sparring with the Young Drifters Around the Campfire", "chapter": "Chapter X (Mozambique)", "pages": "pp. 619–640 (RH)", "location": "Mozambique Bush Camp, East Africa", "rating": "PG", "canon": "Harvey holding his own in late-night campfire debates, contrasting practical engineering and combat experience against youthful idealism.", "artistic": "Olive-drab field shirt with rolled sleeves, holding a blue enamel coffee mug in warm nocturnal firelight.", "adaptation": "None required."}, {"num": 9, "file": "harvey_09_lourenco_marques_britta_romance.jpg", "title": "Intimate Evening with Britta at the Polana Hotel", "chapter": "Chapter X (Mozambique)", "pages": "pp. 635–655 (RH)", "location": "Polana Hotel Suite, Lourenço Marques, Mozambique", "rating": "R (Mature Sensual Romance)", "canon": "Britta leaves Joe for the 44-year-old Harvey Holt in Mozambique, drawn to his decisive strength, warmth, and stability.", "artistic": "Shirtless in tailored cream linen trousers on the moonlit oceanfront balcony with bourbon and cigar, while Britta lounges in a white robe inside the amber-lit louvered suite.", "adaptation": "None required."}, {"num": 10, "file": "harvey_10_marrakech_departing_realist.jpg", "title": "The Pragmatic Survivor Bidding Farewell in Morocco", "chapter": "Chapter XI (Marrakech)", "pages": "pp. 730–751 (RH)", "location": "Courtyard in Marrakech, Morocco (1970)", "rating": "PG", "canon": "Alongside George Fairbanks, Harvey stands as a pillar of practical reality when the Marrakech drug scene claims Monica's life.", "artistic": "Tan suede bush jacket over a light blue work shirt, aviator sunglasses in pocket, leather flight bag slung over his broad shoulder.", "adaptation": "None required."}]}];
+    let activeChar = 'all';
+    let flatList = [];
+    let currentLbIndex = 0;
+
+    const tabsContainer = document.getElementById('charTabs');
+    const galleryContainer = document.getElementById('galleryContainer');
+    const chapterFilter = document.getElementById('chapterFilter');
+    const ratingFilter = document.getElementById('ratingFilter');
+    const searchInput = document.getElementById('searchInput');
+
+    // Populate character tabs
+    CHARACTERS.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'tab-btn';
+      btn.dataset.char = c.id;
+      btn.textContent = `${c.name.split(' ')[0]} (10)`;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeChar = c.id;
+        renderGallery();
+      });
+      tabsContainer.appendChild(btn);
+    });
+
+    document.querySelector('[data-char="all"]').addEventListener('click', (e) => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      activeChar = 'all';
+      renderGallery();
+    });
+
+    function getRatingClass(rating) {
+      if (rating.startsWith('R') || rating.includes('/ R')) return 'rating-r';
+      if (rating.startsWith('PG-13')) return 'rating-pg13';
+      return 'rating-pg';
+    }
+
+    function matchesFilters(scene, char) {
+      const chVal = chapterFilter.value;
+      if (chVal !== 'all') {
+        if (chVal === 'Chapter I') {
+          const isIntro = ['Chapter I (Joe)', 'Chapter II (Britta)', 'Chapter III (Monica)', 'Chapter IV (Cato)', 'Chapter V (Yigal)', 'Chapter VI (Gretchen)', 'Chapter I (Introductory Frame)'].some(k => scene.chapter.includes(k));
+          if (!isIntro) return false;
+        } else if (!scene.chapter.includes(chVal) && !scene.location.includes(chVal)) {
+          return false;
+        }
+      }
+
+      const rVal = ratingFilter.value;
+      if (rVal === 'R' && !(scene.rating.startsWith('R') || scene.rating.includes('/ R'))) return false;
+      if (rVal === 'PG-13' && scene.rating === 'PG') return false;
+
+      const q = searchInput.value.trim().toLowerCase();
+      if (q) {
+        const hay = `${char.name} ${scene.title} ${scene.chapter} ${scene.location} ${scene.canon} ${scene.artistic}`.toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    }
+
+    function renderGallery() {
+      galleryContainer.innerHTML = '';
+      flatList = [];
+
+      CHARACTERS.forEach(char => {
+        if (activeChar !== 'all' && activeChar !== char.id) return;
+
+        const filteredScenes = char.scenes.filter(s => matchesFilters(s, char));
+        if (filteredScenes.length === 0) return;
+
+        const section = document.createElement('section');
+        section.className = 'char-section';
+        section.id = `section-${char.id}`;
+
+        section.innerHTML = `
+          <div class="char-header">
+            <div class="char-title-row">
+              <div>
+                <h2 class="char-name">${char.name}</h2>
+                <div style="color:var(--text-secondary); font-style:italic;">${char.role}</div>
+              </div>
+              <div class="char-meta">
+                <span><strong>Origin:</strong> ${char.origin}</span>
+                <span><strong>Age:</strong> ${char.age}</span>
+                <span><strong>Intro:</strong> ${char.chapter_intro}</span>
+              </div>
+            </div>
+            <div class="char-details-grid">
+              <div class="detail-box">
+                <h4>Physical &amp; Chronological Consistency Anchor</h4>
+                <p>${char.physical_anchor}</p>
+              </div>
+              <div class="detail-box">
+                <h4>Source Text Canon vs. Period Artistic Choices</h4>
+                <p>${char.canon_vs_artistic}</p>
+              </div>
+              <div class="detail-box">
+                <h4>Mature Content &amp; Adaptation Notes</h4>
+                <p>${char.adaptation_note}</p>
+              </div>
+            </div>
+          </div>
+          <div class="scenes-grid" id="grid-${char.id}"></div>
+        `;
+
+        galleryContainer.appendChild(section);
+        const grid = section.querySelector(`#grid-${char.id}`);
+
+        filteredScenes.forEach(scene => {
+          const lbIdx = flatList.length;
+          flatList.push({ char, scene });
+
+          const hasAdapt = scene.adaptation && scene.adaptation !== 'None required.';
+          const card = document.createElement('article');
+          card.className = 'scene-card';
+          card.innerHTML = `
+            <div class="img-wrapper" onclick="openLightbox(${lbIdx})">
+              <img src="images/${scene.file}" alt="${char.name} - ${scene.title}" loading="lazy" />
+              <span class="panel-badge">${char.name.split(' ')[0].toUpperCase()} #${String(scene.num).padStart(2, '0')}</span>
+              <span class="rating-badge ${getRatingClass(scene.rating)}">${scene.rating}</span>
+            </div>
+            <div class="card-body">
+              <div class="scene-title">${scene.num}. ${scene.title}</div>
+              <div class="scene-citation">
+                <span>${scene.chapter} &bull; ${scene.pages}</span>
+                <span>${scene.location}</span>
+              </div>
+              <div class="note-block">
+                <strong>Source Support:</strong> ${scene.canon}
+              </div>
+              <div class="note-block">
+                <strong>Artistic Details:</strong> ${scene.artistic}
+              </div>
+              ${hasAdapt ? `<div class="note-adaptation"><strong>Adaptation Note:</strong> ${scene.adaptation}</div>` : ''}
+              <div class="card-footer">
+                <span style="color:var(--text-muted);">${scene.file}</span>
+                <a class="dl-link" href="images/${scene.file}" download="${scene.file}">&darr; Download</a>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      });
+    }
+
+    function openLightbox(idx) {
+      currentLbIndex = idx;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function updateLightbox() {
+      const item = flatList[currentLbIndex];
+      if (!item) return;
+      const { char, scene } = item;
+      document.getElementById('lbImg').src = `images/${scene.file}`;
+      document.getElementById('lbCharName').textContent = `${char.name} — Panel #${String(scene.num).padStart(2, '0')} of 10 (${scene.rating})`;
+      document.getElementById('lbTitle').textContent = scene.title;
+      document.getElementById('lbMeta').innerHTML = `<span>${scene.chapter} (${scene.pages})</span><span>${scene.location}</span>`;
+      document.getElementById('lbCanon').innerHTML = `<strong>Source-Supported Canon:</strong> ${scene.canon}`;
+      document.getElementById('lbArtistic').innerHTML = `<strong>Period Artistic Choices:</strong> ${scene.artistic}`;
+      const adaptBox = document.getElementById('lbAdaptation');
+      if (scene.adaptation && scene.adaptation !== 'None required.') {
+        adaptBox.style.display = 'block';
+        adaptBox.innerHTML = `<strong>Adaptation / Continuity Note:</strong> ${scene.adaptation}`;
+      } else {
+        adaptBox.style.display = 'none';
+      }
+      const dl = document.getElementById('lbDownload');
+      dl.href = `images/${scene.file}`;
+      dl.setAttribute('download', scene.file);
+    }
+
+    document.getElementById('lbClose').addEventListener('click', () => {
+      document.getElementById('lightbox').classList.remove('open');
+    });
+    document.getElementById('lbPrev').addEventListener('click', () => {
+      currentLbIndex = (currentLbIndex - 1 + flatList.length) % flatList.length;
+      updateLightbox();
+    });
+    document.getElementById('lbNext').addEventListener('click', () => {
+      currentLbIndex = (currentLbIndex + 1) % flatList.length;
+      updateLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightbox');
+      const gm = document.getElementById('guideModal');
+      if (gm && gm.classList.contains('open') && e.key === 'Escape') {
+        gm.classList.remove('open');
+        return;
+      }
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') lb.classList.remove('open');
+      if (e.key === 'ArrowLeft') document.getElementById('lbPrev').click();
+      if (e.key === 'ArrowRight') document.getElementById('lbNext').click();
+    });
+
+    const openGuideBtn = document.getElementById('openGuideBtn');
+    const closeGuideBtn = document.getElementById('closeGuideBtn');
+    const guideModal = document.getElementById('guideModal');
+    const guideModalBody = document.getElementById('guideModalBody');
+
+    function buildGuideContent() {
+      let html = `
+        <div class="detail-box">
+          <h4>1. Reference Editions &amp; Translation Ambiguities</h4>
+          <p style="margin-bottom:0.5rem;"><strong>Primary Reference Editions:</strong> (1) <em>Random House First Trade Hardcover Edition</em> (New York, May 1971; 751 pp.; ISBN 0-394-46200-9, abbreviated <strong>RH</strong>); (2) <em>Fawcett Crest Mass-Market Paperback Edition</em> (New York, 1972; 768 pp.; ISBN 0-449-21653-5, abbreviated <strong>FC</strong>).</p>
+          <p style="margin-bottom:0.5rem;"><strong>Spanish Translation (<em>Hijos de Torremolinos</em>, Plaza &amp; Janés, 1972):</strong> Translates the title literally as <em>Children of Torremolinos</em>. Franco-era printings occasionally generalize late-1960s American drug vernacular ("skin-popping" subcutaneous injection vs. mainlining, "Big-H", "acid", and Moroccan "kif" vs. "majoun"), which can obscure the specific medical cause of Monica's death in Chapter XI (acute serum hepatitis contracted from unsterile needles rather than an immediate narcotic overdose).</p>
+          <p><strong>French Translation (<em>Les Déracinés</em>, Presses de la Cité, 1972):</strong> Renders British colonial ranks in the fictional protectorate of Vwarda and Portuguese colonial terminology in Mozambique (Lourenço Marques / Cabora Bassa) using French administrative equivalents.</p>
+        </div>
+        <div class="detail-box">
+          <h4>2. Mature Content &amp; Quality-Control Adaptation Log</h4>
+          <p style="margin-bottom:0.5rem;">All 8 major characters are legal adults (ages 18–61) across every scene. Mature R-rated elements supported by Michener's novel—revealing/sheer garments, nonsexual &amp; sensual intimacy, 1968 police riot contusions, Pamplona bull-horn gorings, and Monica's heroin/hepatitis wasting in Marrakech—are preserved.</p>
+          <p><strong>Documented Adaptations &amp; Continuity Corrections:</strong> (1) <code>britta_05_algarve_sea_caves.jpg</code>: Automated safety filter rendered a minimal yellow ribbed bikini top over requested topless sunbathing; (2) <code>gretchen_07_algarve_cove_swim.jpg</code>: Framed chest-deep in clear Atlantic water showing bare shoulders and healed collarbone scar; (3) <code>cato_03_torremolinos_alamo_cool.jpg</code>: Regenerated (v2) so Monica seated beside Cato has her canonical dark chestnut-auburn hair; (4) <code>monica_09</code> &amp; <code>monica_10</code>: Regenerated (v2) as clean full-bleed 35mm frames without Polaroid borders.</p>
+        </div>
+      `;
+      CHARACTERS.forEach(c => {
+        html += `
+          <div class="detail-box">
+            <h4 style="font-size:0.9rem; margin-bottom:0.5rem;">${c.name} — <em>${c.role}</em> (${c.age}, ${c.origin})</h4>
+            <p style="margin-bottom:0.4rem;"><strong>Physical Consistency Anchor:</strong> ${c.physical_anchor}</p>
+            <p style="margin-bottom:0.4rem;"><strong>Canon vs. Artistic Choices:</strong> ${c.canon_vs_artistic}</p>
+            <p style="margin-bottom:0.75rem;"><strong>Adaptation Note:</strong> ${c.adaptation_note}</p>
+            <div style="overflow-x:auto;">
+              <table style="width:100%; border-collapse:collapse; font-size:0.8rem; text-align:left;">
+                <thead>
+                  <tr style="border-bottom:1px solid var(--border-subtle); color:var(--accent-gold);">
+                    <th style="padding:0.4rem;">#</th>
+                    <th style="padding:0.4rem;">Scene &amp; File</th>
+                    <th style="padding:0.4rem;">Chapter / Pages</th>
+                    <th style="padding:0.4rem;">Location</th>
+                    <th style="padding:0.4rem;">Rating</th>
+                    <th style="padding:0.4rem;">Source Canon &amp; Artistic Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${c.scenes.map(s => `
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                      <td style="padding:0.45rem; font-weight:bold; color:var(--accent-gold);">${String(s.num).padStart(2, '0')}</td>
+                      <td style="padding:0.45rem;"><strong>${s.title}</strong><br><span style="color:var(--text-muted);">${s.file}</span></td>
+                      <td style="padding:0.45rem;">${s.chapter}<br>${s.pages}</td>
+                      <td style="padding:0.45rem;">${s.location}</td>
+                      <td style="padding:0.45rem;"><code>${s.rating}</code></td>
+                      <td style="padding:0.45rem;"><strong>Canon:</strong> ${s.canon}<br><strong>Artistic:</strong> ${s.artistic}${s.adaptation !== 'None required.' ? `<br><em style="color:#e6ccb2;">Adaptation: ${s.adaptation}</em>` : ''}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      });
+      guideModalBody.innerHTML = html;
+    }
+
+    openGuideBtn.addEventListener('click', () => {
+      buildGuideContent();
+      guideModal.classList.add('open');
+    });
+    closeGuideBtn.addEventListener('click', () => {
+      guideModal.classList.remove('open');
+    });
+
+    chapterFilter.addEventListener('change', renderGallery);
+    ratingFilter.addEventListener('change', renderGallery);
+    searchInput.addEventListener('input', renderGallery);
+
+    renderGallery();
+  </script>
+</body>
+</html>
