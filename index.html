@@ -746,10 +746,6 @@
                 <h4>Source Text Canon vs. Period Artistic Choices</h4>
                 <p>${char.canon_vs_artistic}</p>
               </div>
-              <div class="detail-box">
-                <h4>Mature Content &amp; Adaptation Notes</h4>
-                <p>${char.adaptation_note}</p>
-              </div>
             </div>
           </div>
           <div class="scenes-grid" id="grid-${char.id}"></div>
@@ -762,7 +758,6 @@
           const lbIdx = flatList.length;
           flatList.push({ char, scene });
 
-          const hasAdapt = scene.adaptation && scene.adaptation !== 'None required.';
           const card = document.createElement('article');
           card.className = 'scene-card';
           card.innerHTML = `
@@ -782,7 +777,6 @@
               <div class="note-block">
                 <strong>Artistic Details:</strong> ${scene.artistic}
               </div>
-              ${hasAdapt ? `<div class="note-adaptation"><strong>Adaptation Note:</strong> ${scene.adaptation}</div>` : ''}
               <div class="card-footer">
                 <span style="color:var(--text-muted);">${scene.file}</span>
                 <a class="dl-link" href="images/${scene.file}" download="${scene.file}">&darr; Download</a>
@@ -811,12 +805,7 @@
       document.getElementById('lbCanon').innerHTML = `<strong>Source-Supported Canon:</strong> ${scene.canon}`;
       document.getElementById('lbArtistic').innerHTML = `<strong>Period Artistic Choices:</strong> ${scene.artistic}`;
       const adaptBox = document.getElementById('lbAdaptation');
-      if (scene.adaptation && scene.adaptation !== 'None required.') {
-        adaptBox.style.display = 'block';
-        adaptBox.innerHTML = `<strong>Adaptation / Continuity Note:</strong> ${scene.adaptation}`;
-      } else {
-        adaptBox.style.display = 'none';
-      }
+      adaptBox.style.display = 'none';
       const dl = document.getElementById('lbDownload');
       dl.href = `images/${scene.file}`;
       dl.setAttribute('download', scene.file);
@@ -854,15 +843,10 @@
     function buildGuideContent() {
       let html = `
         <div class="detail-box">
-          <h4>1. Reference Editions &amp; Translation Ambiguities</h4>
+          <h4>Reference Editions &amp; Translation Ambiguities</h4>
           <p style="margin-bottom:0.5rem;"><strong>Primary Reference Editions:</strong> (1) <em>Random House First Trade Hardcover Edition</em> (New York, May 1971; 751 pp.; ISBN 0-394-46200-9, abbreviated <strong>RH</strong>); (2) <em>Fawcett Crest Mass-Market Paperback Edition</em> (New York, 1972; 768 pp.; ISBN 0-449-21653-5, abbreviated <strong>FC</strong>).</p>
           <p style="margin-bottom:0.5rem;"><strong>Spanish Translation (<em>Hijos de Torremolinos</em>, Plaza &amp; Janés, 1972):</strong> Translates the title literally as <em>Children of Torremolinos</em>. Franco-era printings occasionally generalize late-1960s American drug vernacular ("skin-popping" subcutaneous injection vs. mainlining, "Big-H", "acid", and Moroccan "kif" vs. "majoun"), which can obscure the specific medical cause of Monica's death in Chapter XI (acute serum hepatitis contracted from unsterile needles rather than an immediate narcotic overdose).</p>
           <p><strong>French Translation (<em>Les Déracinés</em>, Presses de la Cité, 1972):</strong> Renders British colonial ranks in the fictional protectorate of Vwarda and Portuguese colonial terminology in Mozambique (Lourenço Marques / Cabora Bassa) using French administrative equivalents.</p>
-        </div>
-        <div class="detail-box">
-          <h4>2. Mature Content &amp; Quality-Control Adaptation Log</h4>
-          <p style="margin-bottom:0.5rem;">All 8 major characters are legal adults (ages 18–61) across every scene. Mature R-rated elements supported by Michener's novel—revealing/sheer garments, nonsexual &amp; sensual intimacy, 1968 police riot contusions, Pamplona bull-horn gorings, and Monica's heroin/hepatitis wasting in Marrakech—are preserved.</p>
-          <p><strong>Documented Adaptations &amp; Continuity Corrections:</strong> (1) <code>britta_05_algarve_sea_caves.jpg</code>: Automated safety filter rendered a minimal yellow ribbed bikini top over requested topless sunbathing; (2) <code>gretchen_07_algarve_cove_swim.jpg</code>: Framed chest-deep in clear Atlantic water showing bare shoulders and healed collarbone scar; (3) <code>cato_03_torremolinos_alamo_cool.jpg</code>: Regenerated (v2) so Monica seated beside Cato has her canonical dark chestnut-auburn hair; (4) <code>monica_09</code> &amp; <code>monica_10</code>: Regenerated (v2) as clean full-bleed 35mm frames without Polaroid borders.</p>
         </div>
       `;
       CHARACTERS.forEach(c => {
@@ -870,8 +854,7 @@
           <div class="detail-box">
             <h4 style="font-size:0.9rem; margin-bottom:0.5rem;">${c.name} — <em>${c.role}</em> (${c.age}, ${c.origin})</h4>
             <p style="margin-bottom:0.4rem;"><strong>Physical Consistency Anchor:</strong> ${c.physical_anchor}</p>
-            <p style="margin-bottom:0.4rem;"><strong>Canon vs. Artistic Choices:</strong> ${c.canon_vs_artistic}</p>
-            <p style="margin-bottom:0.75rem;"><strong>Adaptation Note:</strong> ${c.adaptation_note}</p>
+            <p style="margin-bottom:0.75rem;"><strong>Canon vs. Artistic Choices:</strong> ${c.canon_vs_artistic}</p>
             <div style="overflow-x:auto;">
               <table style="width:100%; border-collapse:collapse; font-size:0.8rem; text-align:left;">
                 <thead>
@@ -890,7 +873,7 @@
                       <td style="padding:0.45rem;"><strong>${s.title}</strong><br><span style="color:var(--text-muted);">${s.file}</span></td>
                       <td style="padding:0.45rem;">${s.chapter}<br>${s.pages}</td>
                       <td style="padding:0.45rem;">${s.location}</td>
-                      <td style="padding:0.45rem;"><strong>Canon:</strong> ${s.canon}<br><strong>Artistic:</strong> ${s.artistic}${s.adaptation !== 'None required.' ? `<br><em style="color:#e6ccb2;">Note: ${s.adaptation}</em>` : ''}</td>
+                      <td style="padding:0.45rem;"><strong>Canon:</strong> ${s.canon}<br><strong>Artistic:</strong> ${s.artistic}</td>
                     </tr>
                   `).join('')}
                 </tbody>
