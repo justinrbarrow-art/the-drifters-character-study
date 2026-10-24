@@ -580,11 +580,6 @@
           <option value="Marrakech">Ch. XI: Marrakech (Morocco)</option>
           <option value="Epilogue">Epilogue / Departures</option>
         </select>
-        <select id="ratingFilter">
-          <option value="all">All Maturity Levels</option>
-          <option value="R">Mature / R-Rated Panels Only</option>
-          <option value="PG-13">PG-13 &amp; Above</option>
-        </select>
         <input type="search" id="searchInput" placeholder="Search outfits, props, scenes..." />
       </div>
     </div>
@@ -605,9 +600,9 @@
         </p>
       </div>
       <div class="edition-col">
-        <h3>3. Mature Content &amp; Safety Adaptations</h3>
+        <h3>3. Period Realism &amp; Visual Continuity</h3>
         <p>
-          All 8 characters are legal adults (ages 18–61). In accordance with instructions, mature R-rated themes from Michener's novel—sensual intimacy, sheer garments, Pamplona bull-horn gorings, 1968 police riot contusions, and Monica's heroin/hepatitis wasting in Marrakech—are preserved. In two beach panels (<code>britta_05</code> and <code>gretchen_07</code>), minimal safety-filter adaptations were made and documented directly on the cards.
+          Designed as an authentic late-1960s / 1970 Kodachrome and Kodak Portra visual companion to Michener's novel, preserving the work's unvarnished adult tone, sun-drenched Mediterranean and African settings, Pamplona bullring drama, 1968 political unrest, and the tragic Marrakech arc.
         </p>
       </div>
     </section>
@@ -672,7 +667,6 @@
     const tabsContainer = document.getElementById('charTabs');
     const galleryContainer = document.getElementById('galleryContainer');
     const chapterFilter = document.getElementById('chapterFilter');
-    const ratingFilter = document.getElementById('ratingFilter');
     const searchInput = document.getElementById('searchInput');
 
     // Populate character tabs
@@ -697,12 +691,6 @@
       renderGallery();
     });
 
-    function getRatingClass(rating) {
-      if (rating.startsWith('R') || rating.includes('/ R')) return 'rating-r';
-      if (rating.startsWith('PG-13')) return 'rating-pg13';
-      return 'rating-pg';
-    }
-
     function matchesFilters(scene, char) {
       const chVal = chapterFilter.value;
       if (chVal !== 'all') {
@@ -713,10 +701,6 @@
           return false;
         }
       }
-
-      const rVal = ratingFilter.value;
-      if (rVal === 'R' && !(scene.rating.startsWith('R') || scene.rating.includes('/ R'))) return false;
-      if (rVal === 'PG-13' && scene.rating === 'PG') return false;
 
       const q = searchInput.value.trim().toLowerCase();
       if (q) {
@@ -785,7 +769,6 @@
             <div class="img-wrapper" onclick="openLightbox(${lbIdx})">
               <img src="images/${scene.file}" alt="${char.name} - ${scene.title}" loading="lazy" />
               <span class="panel-badge">${char.name.split(' ')[0].toUpperCase()} #${String(scene.num).padStart(2, '0')}</span>
-              <span class="rating-badge ${getRatingClass(scene.rating)}">${scene.rating}</span>
             </div>
             <div class="card-body">
               <div class="scene-title">${scene.num}. ${scene.title}</div>
@@ -822,7 +805,7 @@
       if (!item) return;
       const { char, scene } = item;
       document.getElementById('lbImg').src = `images/${scene.file}`;
-      document.getElementById('lbCharName').textContent = `${char.name} — Panel #${String(scene.num).padStart(2, '0')} of 10 (${scene.rating})`;
+      document.getElementById('lbCharName').textContent = `${char.name} — Panel #${String(scene.num).padStart(2, '0')} of 10`;
       document.getElementById('lbTitle').textContent = scene.title;
       document.getElementById('lbMeta').innerHTML = `<span>${scene.chapter} (${scene.pages})</span><span>${scene.location}</span>`;
       document.getElementById('lbCanon').innerHTML = `<strong>Source-Supported Canon:</strong> ${scene.canon}`;
@@ -897,7 +880,6 @@
                     <th style="padding:0.4rem;">Scene &amp; File</th>
                     <th style="padding:0.4rem;">Chapter / Pages</th>
                     <th style="padding:0.4rem;">Location</th>
-                    <th style="padding:0.4rem;">Rating</th>
                     <th style="padding:0.4rem;">Source Canon &amp; Artistic Details</th>
                   </tr>
                 </thead>
@@ -908,8 +890,7 @@
                       <td style="padding:0.45rem;"><strong>${s.title}</strong><br><span style="color:var(--text-muted);">${s.file}</span></td>
                       <td style="padding:0.45rem;">${s.chapter}<br>${s.pages}</td>
                       <td style="padding:0.45rem;">${s.location}</td>
-                      <td style="padding:0.45rem;"><code>${s.rating}</code></td>
-                      <td style="padding:0.45rem;"><strong>Canon:</strong> ${s.canon}<br><strong>Artistic:</strong> ${s.artistic}${s.adaptation !== 'None required.' ? `<br><em style="color:#e6ccb2;">Adaptation: ${s.adaptation}</em>` : ''}</td>
+                      <td style="padding:0.45rem;"><strong>Canon:</strong> ${s.canon}<br><strong>Artistic:</strong> ${s.artistic}${s.adaptation !== 'None required.' ? `<br><em style="color:#e6ccb2;">Note: ${s.adaptation}</em>` : ''}</td>
                     </tr>
                   `).join('')}
                 </tbody>
@@ -930,7 +911,6 @@
     });
 
     chapterFilter.addEventListener('change', renderGallery);
-    ratingFilter.addEventListener('change', renderGallery);
     searchInput.addEventListener('input', renderGallery);
 
     renderGallery();
